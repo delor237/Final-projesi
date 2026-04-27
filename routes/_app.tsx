@@ -9,7 +9,6 @@ export default function App({ Component, state }: PageProps<any, State>) {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Deno Fresh Todo Uygulaması</title>
-        <link rel="stylesheet" href="/styles.css" />
         {/* Kullanıcının dark tema tercihini sayfa yüklenmeden önce kontrol eden script */}
         <script
           dangerouslySetInnerHTML={{

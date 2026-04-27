@@ -1,6 +1,7 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { setCookie } from "$std/http/cookie.ts";
 import { hashPassword, authenticateUser, registerUser, createSession } from "../utils/auth.ts";
+import { kv } from "../utils/db.ts";
 import { State } from "./_middleware.ts";
 
 interface Data {
@@ -10,11 +11,11 @@ interface Data {
 
 export const handler: Handlers<Data, State> = {
   async GET(req, ctx) {
-    // Kullanıcı zaten oturum açmışsa direkt dashboard'a yönlendir
+    // Kullanıcı zaten oturum açmışsa direkt anasayfaya yönlendir
     if (ctx.state.user) {
       return new Response("", {
         status: 303,
-        headers: { Location: "/dashboard" },
+        headers: { Location: "/" },
       });
     }
     return ctx.render({});
@@ -40,9 +41,15 @@ export const handler: Handlers<Data, State> = {
         return ctx.render({ error: "Bu kullanıcı adı zaten sistemde kayıtlı." });
       }
     } else {
+      // Login denemesi
+      const existingUserCheck = await kv.get(["users_by_username", username]);
+      if (!existingUserCheck.value) {
+        return ctx.render({ error: "Kullanıcı bulunamadı. Lütfen önce 'Kayıt Ol' butonuna tıklayın." });
+      }
+
       user = await authenticateUser(username, hashedPwd);
       if (!user) {
-        return ctx.render({ error: "Kullanıcı adı veya şifre hatalı." });
+        return ctx.render({ error: "Şifre hatalı." });
       }
     }
 
@@ -61,7 +68,7 @@ export const handler: Handlers<Data, State> = {
       secure: isSecure, // Sadece HTTPS üzerinden gönderilmesine izin ver (localhost'ta çalışır)
     });
     
-    headers.set("Location", "/dashboard");
+    headers.set("Location", "/");
 
     return new Response("", {
       status: 303,

@@ -26,15 +26,10 @@ export async function handler(
     ctx.state.user = null;
   }
 
-  // Korumalı route kontrolü: Kullanıcı giriş yapmamışsa anasayfaya/dashboard'a girmesini engelle
+  // /api/ rotalarına yetkisiz erişimi engelle
   const url = new URL(req.url);
-  const protectedRoutes = ["/dashboard", "/todos"];
-  
-  if (protectedRoutes.some((route) => url.pathname.startsWith(route)) && !ctx.state.user) {
-    return new Response("", {
-      status: 303,
-      headers: { Location: "/login" },
-    });
+  if (url.pathname.startsWith("/api/") && !ctx.state.user) {
+    return new Response("Unauthorized", { status: 401 });
   }
 
   return await ctx.next();

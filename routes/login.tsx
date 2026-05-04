@@ -1,5 +1,5 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { setCookie } from "$std/http/cookie.ts";
+import { getCookies, setCookie } from "$std/http/cookie.ts";
 import { hashPassword, authenticateUser, registerUser, createSession } from "../utils/auth.ts";
 import { kv } from "../utils/db.ts";
 import { State } from "./_middleware.ts";
@@ -26,17 +26,23 @@ export const handler: Handlers<Data, State> = {
     const action = form.get("action")?.toString(); // "login" veya "register"
     const username = form.get("username")?.toString();
     const password = form.get("password")?.toString();
+    const csrfToken = form.get("_csrf")?.toString();
+
+    // CSRF Kontrolü
+    const cookies = getCookies(req.headers);
+    if (!csrfToken || csrfToken !== cookies.csrf_token) {
+      return ctx.render({ error: "Güvenlik doğrulaması başarısız (CSRF)." });
+    }
 
     // Güvenlik: Boş girdi kontrolü
     if (!username || !password) {
       return ctx.render({ error: "Lütfen kullanıcı adı ve şifre giriniz." });
     }
 
-    const hashedPwd = await hashPassword(password);
     let user = null;
 
     if (action === "register") {
-      user = await registerUser(username, hashedPwd);
+      user = await registerUser(username, password);
       if (!user) {
         return ctx.render({ error: "Bu kullanıcı adı zaten sistemde kayıtlı." });
       }
@@ -47,7 +53,7 @@ export const handler: Handlers<Data, State> = {
         return ctx.render({ error: "Kullanıcı bulunamadı. Lütfen önce 'Kayıt Ol' butonuna tıklayın." });
       }
 
-      user = await authenticateUser(username, hashedPwd);
+      user = await authenticateUser(username, password);
       if (!user) {
         return ctx.render({ error: "Şifre hatalı." });
       }
@@ -77,7 +83,7 @@ export const handler: Handlers<Data, State> = {
   },
 };
 
-export default function Login({ data }: PageProps<Data>) {
+export default function Login({ data, state }: PageProps<Data, State>) {
   return (
     <div class="min-h-[70vh] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div class="sm:mx-auto sm:w-full sm:max-w-md">
@@ -99,6 +105,7 @@ export default function Login({ data }: PageProps<Data>) {
           )}
 
           <form method="POST" class="space-y-6">
+            <input type="hidden" name="_csrf" value={state.csrfToken} />
             <div>
               <label for="username" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Kullanıcı Adı

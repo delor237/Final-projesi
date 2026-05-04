@@ -4,29 +4,36 @@ import { Todo } from "../utils/db.ts";
 
 interface TodoListProps {
   initialTodos: Todo[];
+  csrfToken: string;
 }
 
-export default function TodoList({ initialTodos }: TodoListProps) {
-  // Sayfa yüklendiğinde SSR'dan gelen verileri globale al
+export default function TodoList({ initialTodos, csrfToken }: TodoListProps) {
+  // Sayfa yüklendiğinde SSR'dan gelen verileri globale al (Sadece bir kez veya veri değiştiğinde)
   useEffect(() => {
-    todosStore.value = initialTodos;
+    if (todosStore.value.length === 0 && initialTodos.length > 0) {
+      todosStore.value = initialTodos;
+    }
   }, [initialTodos]);
 
   const toggleTodo = async (id: string) => {
-    // Optimistic UI güncellemesi (anında arayüzde göster)
+    // Optimistic UI güncellemesi
     const original = [...todosStore.value];
     todosStore.value = todosStore.value.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
 
     try {
       const res = await fetch("/api/todos", {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "x-csrf-token": csrfToken
+        },
         body: JSON.stringify({ id }),
       });
       if (!res.ok) throw new Error();
     } catch {
       // Hata olursa eski haline getir
       todosStore.value = original;
+      alert("Durum güncellenirken bir hata oluştu.");
     }
   };
 
@@ -39,7 +46,10 @@ export default function TodoList({ initialTodos }: TodoListProps) {
     try {
       const res = await fetch("/api/todos", {
         method: "DELETE",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "x-csrf-token": csrfToken
+        },
         body: JSON.stringify({ id }),
       });
       if (!res.ok) throw new Error();

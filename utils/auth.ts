@@ -1,16 +1,21 @@
 import { kv, User } from "./db.ts";
 
 /**
- * Şifreleri güvenli bir şekilde SHA-256 algoritmasıyla hash'ler.
- * Gerçek dünya uygulamalarında bcrypt veya argon2 kullanılması önerilir, 
- * ancak final projesi gereksinimleri için Deno'nun yerleşik crypto API'si kullanılmıştır.
+ * Şifreleri güvenli bir şekilde SHA-256 algoritmasıyla ve tuz (salt) ekleyerek hash'ler.
  */
-export async function hashPassword(password: string): Promise<string> {
+export async function hashPassword(password: string, salt: string): Promise<string> {
   const encoder = new TextEncoder();
-  const data = encoder.encode(password);
+  const data = encoder.encode(password + salt);
   const hashBuffer = await crypto.subtle.digest("SHA-256", data);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
   return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+/**
+ * Rastgele bir tuz (salt) oluşturur.
+ */
+export function generateSalt(): string {
+  return crypto.randomUUID().replace(/-/g, "");
 }
 
 /**
@@ -40,15 +45,17 @@ export async function getUserBySession(sessionId: string): Promise<User | null> 
 /**
  * Yeni bir kullanıcı kaydeder. Kullanıcı adı benzersiz (unique) olmalıdır.
  */
-export async function registerUser(username: string, passwordHash: string): Promise<User | null> {
+export async function registerUser(username: string, password: string): Promise<User | null> {
   const usernameKey = ["users_by_username", username];
   const existingRes = await kv.get(usernameKey);
   
   // Kullanıcı adı zaten alınmışsa null dön
   if (existingRes.value) return null;
   
+  const salt = generateSalt();
+  const passwordHash = await hashPassword(password, salt);
   const id = crypto.randomUUID();
-  const user: User = { id, username, passwordHash, createdAt: Date.now() };
+  const user: User = { id, username, passwordHash, salt, createdAt: Date.now() };
   
   const op = kv.atomic();
   op.check(existingRes); // Username'in biz işlem yaparken alınmadığını doğrula
@@ -62,17 +69,20 @@ export async function registerUser(username: string, passwordHash: string): Prom
 /**
  * Kullanıcı kimlik doğrulamasını (Login) gerçekleştirir.
  */
-export async function authenticateUser(username: string, passwordHash: string): Promise<User | null> {
+export async function authenticateUser(username: string, password: string): Promise<User | null> {
   const userIdRes = await kv.get<string>(["users_by_username", username]);
   if (!userIdRes.value) return null; // Kullanıcı bulunamadı
   
   const userRes = await kv.get<User>(["users", userIdRes.value]);
   if (!userRes.value) return null;
   
-  // Şifre hash'leri uyuşmuyorsa null dön
-  if (userRes.value.passwordHash !== passwordHash) return null;
+  const user = userRes.value;
+  const hashToVerify = await hashPassword(password, user.salt);
   
-  return userRes.value;
+  // Şifre hash'leri uyuşmuyorsa null dön
+  if (user.passwordHash !== hashToVerify) return null;
+  
+  return user;
 }
 
 /**

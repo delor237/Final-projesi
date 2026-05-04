@@ -1,5 +1,5 @@
 import { type PageProps } from "$fresh/server.ts";
-import Navbar from "../components/Navbar.tsx";
+import Navbar from "../islands/Navbar.tsx";
 import { State } from "./_middleware.ts";
 
 export default function App({ Component, state }: PageProps<any, State>) {

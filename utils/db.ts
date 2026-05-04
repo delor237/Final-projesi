@@ -10,6 +10,7 @@ export interface User {
   id: string; // UUID
   username: string;
   passwordHash: string; // Güvenlik kuralı gereği şifreler hash'lenmiş tutulmalıdır
+  salt: string; // Her kullanıcıya özel tuz (salt)
   createdAt: number;
 }
 

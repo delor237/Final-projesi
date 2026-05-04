@@ -1,16 +1,16 @@
 import { FreshContext } from "$fresh/server.ts";
-import { getCookies } from "$std/http/cookie.ts";
+import { getCookies, setCookie } from "$std/http/cookie.ts";
 import { getUserBySession } from "../utils/auth.ts";
 import { User } from "../utils/db.ts";
 
 // Tüm sayfalarda geçerli olacak Global State tipi
 export interface State {
   user: User | null;
+  csrfToken: string;
 }
 
 /**
  * Middleware: Her istekte çalışır. Kullanıcının oturum açıp açmadığını kontrol eder.
- * Güvenlik Kuralı: İstemcideki auth cookie'sini sunucu tarafında doğrular.
  */
 export async function handler(
   req: Request,
@@ -18,6 +18,23 @@ export async function handler(
 ) {
   const cookies = getCookies(req.headers);
   const sessionId = cookies.auth;
+  
+  // CSRF Token Yönetimi
+  let csrfToken = cookies.csrf_token;
+  const resHeaders = new Headers();
+  
+  if (!csrfToken) {
+    csrfToken = crypto.randomUUID();
+    setCookie(resHeaders, {
+      name: "csrf_token",
+      value: csrfToken,
+      path: "/",
+      httpOnly: true,
+      sameSite: "Lax",
+    });
+  }
+  
+  ctx.state.csrfToken = csrfToken;
 
   if (sessionId) {
     const user = await getUserBySession(sessionId);
@@ -32,5 +49,12 @@ export async function handler(
     return new Response("Unauthorized", { status: 401 });
   }
 
-  return await ctx.next();
+  const resp = await ctx.next();
+  
+  // Headers'ları birleştir (CSRF cookie'sini eklemek için)
+  resHeaders.forEach((value, key) => {
+    resp.headers.append(key, value);
+  });
+  
+  return resp;
 }

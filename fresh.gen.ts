@@ -2,12 +2,15 @@
 // This file SHOULD be checked into source version control.
 // This file is automatically updated during development when running `dev.ts`.
 
+import * as $_404 from "./routes/_404.tsx";
+import * as $_500 from "./routes/_500.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $_middleware from "./routes/_middleware.ts";
 import * as $api_todos from "./routes/api/todos.ts";
 import * as $index from "./routes/index.tsx";
 import * as $login from "./routes/login.tsx";
 import * as $logout from "./routes/logout.ts";
+import * as $Navbar from "./islands/Navbar.tsx";
 import * as $ThemeToggle from "./islands/ThemeToggle.tsx";
 import * as $TodoForm from "./islands/TodoForm.tsx";
 import * as $TodoList from "./islands/TodoList.tsx";
@@ -15,6 +18,8 @@ import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
   routes: {
+    "./routes/_404.tsx": $_404,
+    "./routes/_500.tsx": $_500,
     "./routes/_app.tsx": $_app,
     "./routes/_middleware.ts": $_middleware,
     "./routes/api/todos.ts": $api_todos,
@@ -23,6 +28,7 @@ const manifest = {
     "./routes/logout.ts": $logout,
   },
   islands: {
+    "./islands/Navbar.tsx": $Navbar,
     "./islands/ThemeToggle.tsx": $ThemeToggle,
     "./islands/TodoForm.tsx": $TodoForm,
     "./islands/TodoList.tsx": $TodoList,

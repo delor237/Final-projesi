@@ -53,10 +53,10 @@ export default function Home({ data, state }: PageProps<Data, State>) {
       
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div class="lg:col-span-1">
-          <TodoForm categories={data.categories} />
+          <TodoForm categories={data.categories} csrfToken={state.csrfToken} />
         </div>
         <div class="lg:col-span-2">
-          <TodoList initialTodos={data.todos} />
+          <TodoList initialTodos={data.todos} csrfToken={state.csrfToken} />
         </div>
       </div>
     </div>

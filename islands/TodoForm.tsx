@@ -4,9 +4,10 @@ import { Category } from "../utils/db.ts";
 
 interface TodoFormProps {
   categories: Category[];
+  csrfToken: string;
 }
 
-export default function TodoForm({ categories }: TodoFormProps) {
+export default function TodoForm({ categories, csrfToken }: TodoFormProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [categoryId, setCategoryId] = useState("");
@@ -15,7 +16,8 @@ export default function TodoForm({ categories }: TodoFormProps) {
 
   const handleSubmit = async (e: Event) => {
     e.preventDefault();
-    if (!title.trim()) return;
+    const trimmedTitle = title.trim();
+    if (!trimmedTitle) return;
 
     setIsSubmitting(true);
     setError("");
@@ -23,14 +25,20 @@ export default function TodoForm({ categories }: TodoFormProps) {
     try {
       const res = await fetch("/api/todos", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, description, categoryId }),
+        headers: { 
+          "Content-Type": "application/json",
+          "x-csrf-token": csrfToken
+        },
+        body: JSON.stringify({ title: trimmedTitle, description: description.trim(), categoryId }),
       });
 
-      if (!res.ok) throw new Error("Görev eklenemedi.");
+      if (!res.ok) {
+        const msg = await res.text();
+        throw new Error(msg || "Görev eklenemedi.");
+      }
 
       const newTodo = await res.json();
-      // Global listeyi anında güncelle (Optimistic veya fetch sonrası)
+      // Global listeyi anında güncelle
       todosStore.value = [newTodo, ...todosStore.value];
       
       // Formu temizle

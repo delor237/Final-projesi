@@ -1,7 +1,7 @@
 # Proje Şablonu
 
 **Öğrenci Adı:** Merlin Delor
-**Okul Numarası:** [INSERT_STUDENT_ID]
+**Okul Numarası:** 24080410153
 
 **Proje Başlığı:** P26 Deno Fresh Framework
 **Zorluk Derecesi:** Orta-Zor

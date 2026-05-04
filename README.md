@@ -1,5 +1,5 @@
 Öğrenci: Merlin Delor
-Okul No: [INSERT_STUDENT_ID]
+Okul No: 24080410153
 
 # 1. Proje Adı ve Kısa Açıklama
 **Todo App (Deno & Fresh)**

@@ -1,7 +1,8 @@
 // Deno KV Bağlantısı ve Veri Modelleri
 // Sırların kodda yer almaması kuralına uygun olarak path `.env`'den alınıyor.
 
-const kvPath = Deno.env.get("DENO_KV_PATH") || undefined;
+const isDenoDeploy = Deno.env.get("DENO_DEPLOYMENT_ID") !== undefined;
+const kvPath = isDenoDeploy ? undefined : (Deno.env.get("DENO_KV_PATH") || undefined);
 export const kv = await Deno.openKv(kvPath);
 
 // --- TİPLER (INTERFACES) ---

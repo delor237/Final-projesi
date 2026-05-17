@@ -3,6 +3,9 @@ Okul No: 24080410153
 
 # 1. Proje Adı ve Kısa Açıklama
 **Todo App (Deno & Fresh)**
+
+🚀 **Canlı Demo (Live URL):** [https://final-projesi.delor237.deno.net](https://final-projesi.delor237.deno.net)
+
 Bu proje, modern ve hızlı bir web uygulaması geliştirmek amacıyla Deno çalışma zamanı (runtime) ve Fresh framework'ü kullanılarak inşa edilmiştir. Fresh'in "Islands" mimarisi sayesinde, sadece etkileşim gerektiren bileşenler istemci tarafında çalıştırılır (hydration), geri kalan kısımlar ise sunucuda (SSR) render edilerek tarayıcıya saf HTML olarak gönderilir. Bu yaklaşım, yüksek performans ve mükemmel bir kullanıcı deneyimi sağlar.
 
 # 2. Ekran Görüntüleri (Screenshots)

@@ -140,3 +140,53 @@ export async function getCategoriesByUser(userId: string): Promise<Category[]> {
   
   return categories;
 }
+
+/**
+ * Belirli bir kategoriyi günceller (isim veya renk).
+ */
+export async function updateCategory(id: string, userId: string, name: string, color: string): Promise<Category | null> {
+  const categoryKey = ["categories", userId, id];
+  const categoryRes = await kv.get<Category>(categoryKey);
+  
+  if (!categoryRes.value) return null;
+  
+  const updatedCategory: Category = { ...categoryRes.value, name, color };
+  
+  const op = kv.atomic();
+  op.check(categoryRes);
+  op.set(categoryKey, updatedCategory);
+  
+  const res = await op.commit();
+  return res.ok ? updatedCategory : null;
+}
+
+/**
+ * Belirli bir kategoriyi siler ve ona bağlı tüm görevlerin kategori ID'lerini temizler (Cascade Update).
+ */
+export async function deleteCategory(id: string, userId: string): Promise<boolean> {
+  const categoryKey = ["categories", userId, id];
+  const categoryRes = await kv.get<Category>(categoryKey);
+  
+  if (!categoryRes.value) return false;
+  
+  // Kategoriye bağlı görevleri bul ve güncelle
+  const todos = await getTodosByUser(userId);
+  const op = kv.atomic();
+  op.check(categoryRes);
+  op.delete(categoryKey);
+  
+  for (const todo of todos) {
+    if (todo.categoryId === id) {
+      const updatedTodo = { ...todo, categoryId: undefined };
+      const todoRes = await kv.get<Todo>(["todos", todo.id]);
+      if (todoRes.value) {
+        op.check(todoRes);
+        op.set(["todos", todo.id], updatedTodo);
+        op.set(["todos_by_user", userId, todo.id], updatedTodo);
+      }
+    }
+  }
+  
+  const res = await op.commit();
+  return res.ok;
+}

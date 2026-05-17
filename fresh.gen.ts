@@ -6,10 +6,14 @@ import * as $_404 from "./routes/_404.tsx";
 import * as $_500 from "./routes/_500.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $_middleware from "./routes/_middleware.ts";
+import * as $api_categories from "./routes/api/categories.ts";
 import * as $api_todos from "./routes/api/todos.ts";
+import * as $categories from "./routes/categories.tsx";
 import * as $index from "./routes/index.tsx";
 import * as $login from "./routes/login.tsx";
 import * as $logout from "./routes/logout.ts";
+import * as $CategoryFilter from "./islands/CategoryFilter.tsx";
+import * as $CategoryManager from "./islands/CategoryManager.tsx";
 import * as $Navbar from "./islands/Navbar.tsx";
 import * as $ThemeToggle from "./islands/ThemeToggle.tsx";
 import * as $TodoForm from "./islands/TodoForm.tsx";
@@ -22,12 +26,16 @@ const manifest = {
     "./routes/_500.tsx": $_500,
     "./routes/_app.tsx": $_app,
     "./routes/_middleware.ts": $_middleware,
+    "./routes/api/categories.ts": $api_categories,
     "./routes/api/todos.ts": $api_todos,
+    "./routes/categories.tsx": $categories,
     "./routes/index.tsx": $index,
     "./routes/login.tsx": $login,
     "./routes/logout.ts": $logout,
   },
   islands: {
+    "./islands/CategoryFilter.tsx": $CategoryFilter,
+    "./islands/CategoryManager.tsx": $CategoryManager,
     "./islands/Navbar.tsx": $Navbar,
     "./islands/ThemeToggle.tsx": $ThemeToggle,
     "./islands/TodoForm.tsx": $TodoForm,

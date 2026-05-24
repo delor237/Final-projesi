@@ -1,33 +1,74 @@
-# Proje Şablonu
+# Proje Sablonu
 
-**Öğrenci Adı:** Merlin Delor
-**Okul Numarası:** 24080410153
+**Ogrenci:** Merlin Delor\
+**Okul Numarasi:** 24080410153\
+**Proje Kodu:** P26\
+**Proje Basligi:** Deno Fresh Todo Uygulamasi\
+**Zorluk Derecesi:** Orta-Zor\
+**Canli Demo:** <https://final-projesi.delor237.deno.net>\
+**GitHub:** <https://github.com/delor237/Final-projesi>
 
-**Proje Başlığı:** P26 Deno Fresh Framework
-**Zorluk Derecesi:** Orta-Zor
-**Değerlendirme Puanı:** 50 Puan
+## 1. Projenin Amaci ve Kapsami
 
-## 1. Projenin Amacı ve Kapsamı
-Bu projenin temel amacı, yenilikçi Deno çalışma zamanı (runtime) ve modern Fresh framework'ü kullanılarak yüksek performanslı, SSR (Server-Side Rendering) tabanlı bir web uygulaması geliştirmektir. Proje kapsamında, Islands mimarisi sayesinde sadece gerekli bileşenlerde istemci tarafı etkileşimi sağlanarak optimize edilmiş bir kullanıcı deneyimi sunulması hedeflenmektedir. Uygulama içi veri kalıcılığı Deno'nun yerleşik aracı olan Deno KV ile sağlanmaktadır.
+Bu projenin amaci, Deno runtime ve Fresh framework kullanilarak server-side
+rendering tabanli, hizli ve modern bir gorev yonetimi uygulamasi gelistirmektir.
+Uygulama, kullanici hesabi, oturum yonetimi, todo CRUD islemleri, kategori
+yonetimi, kategori filtreleme ve dark mode ozelliklerini kapsar.
 
-## 2. Kullanılan Teknolojiler
-* **Çalışma Zamanı (Runtime):** Deno
-* **Web Framework:** Fresh
-* **Kullanıcı Arayüzü (UI):** Preact
-* **Stil ve Tasarım:** Twind (Tailwind tabanlı CSS-in-JS)
-* **Veritabanı:** Deno KV
+## 2. Kullanilan Teknolojiler
 
-## 3. Temel İşlevler ve Özellikler
-* Yeni görevlerin (Todo) hızlı bir şekilde sisteme eklenebilmesi.
-* Görevlerin güncel durumlarıyla birlikte listelenmesi.
-* Görevlerin tamamlandı/tamamlanmadı olarak işaretlenebilmesi ve güncellenmesi.
-* İstenmeyen görevlerin sistemden silinebilmesi.
-* Tüm veri işlemlerinin Deno KV üzerinde güvenli ve kalıcı (persistent) olarak yönetilmesi.
-* Gece/Gündüz (Dark Mode) tema desteği ve hızlı etkileşim (Client-side hydration).
+- **Runtime:** Deno
+- **Web Framework:** Fresh
+- **UI:** Preact Islands
+- **State:** Preact Signals
+- **Stil:** Twind
+- **Veritabani:** Deno KV
+- **Deployment:** Deno Deploy
+- **CI:** GitHub Actions
 
-## 4. Değerlendirme Kriterleri ve Beklentiler
-* Projenin belirtilen adımlarla (örneğin `deno task start`) sorunsuz bir şekilde ayağa kalkması.
-* Öğrenci ve proje kimlik bilgilerinin dokümanlarda eksiksiz yer alması.
-* Deno KV ile veri okuma/yazma işlemlerinin (CRUD) hatasız gerçekleştirilmesi.
-* Clean code prensiplerine uygun, okunabilir ve modüler Preact/Fresh bileşen yapısı.
-* Git versiyon kontrol sisteminin düzenli ve anlamlı commit'lerle kullanılmış olması.
+## 3. Temel Islevler ve Ozellikler
+
+- Kullanici kaydi ve girisi.
+- Session cookie ile oturum yonetimi.
+- CSRF korumasi.
+- Gorev ekleme, listeleme, tamamlama ve silme.
+- Kategori ekleme, listeleme, guncelleme ve silme.
+- Kategoriye gore gorev filtreleme.
+- Light/dark tema destegi.
+- Deno KV ile kalici veri saklama.
+- Security header'lari ve basit rate limiting.
+- Deno testleri ve CI workflow.
+
+## 4. Degerlendirme Kriterleri ve Karsiliklari
+
+| Kriter                              | Durum |
+| ----------------------------------- | ----- |
+| Proje `deno task start` ile calisir | Var   |
+| Deno KV CRUD islemleri              | Var   |
+| Moduler Fresh/Preact yapi           | Var   |
+| Auth ve guvenlik kontrolleri        | Var   |
+| Dokumantasyon ve rapor              | Var   |
+| OpenAPI dosyasi                     | Var   |
+| ADR ve mimari diyagramlar           | Var   |
+| Testler                             | Var   |
+| CI workflow                         | Var   |
+
+## 5. Dogrulama Komutlari
+
+```bash
+deno task check
+deno task test
+deno task build
+deno task ci
+```
+
+## 6. Ilgili Dosyalar
+
+- `PROJE-RAPORU.md`
+- `README.md`
+- `docs/architecture.md`
+- `docs/api-endpoints.md`
+- `docs/kv-database-schema.md`
+- `docs/adr/`
+- `openapi.yaml`
+- `.github/workflows/ci.yml`

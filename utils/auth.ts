@@ -2,7 +2,8 @@ import { kv, User } from "./db.ts";
 
 /**
  * Attempt to dynamically import an Argon2 implementation.
- * Returns an object with `hash` and `verify` functions, or null if unavailable.
+ * Prefer a vendored local shim (in-repo) to avoid network failures in CI,
+ * then fall back to the deno.land Argon2 module if available.
  */
 async function getArgon2(): Promise<
   null | {
@@ -10,6 +11,19 @@ async function getArgon2(): Promise<
     verify: (h: string, p: string) => Promise<boolean>;
   }
 > {
+  // Try vendored local shim first
+  try {
+    const localMod = await import("../vendor/argon2_shim.ts");
+    const hash = localMod.hash;
+    const verify = localMod.verify;
+    if (typeof hash === "function" && typeof verify === "function") {
+      return { hash: hash.bind(localMod), verify: verify.bind(localMod) };
+    }
+  } catch {
+    // ignore and try remote import
+  }
+
+  // Fallback: try remote Argon2 module from deno.land
   try {
     type Argon2Like = {
       hash?: (p: string) => Promise<string>;
@@ -27,7 +41,6 @@ async function getArgon2(): Promise<
     }
     return null;
   } catch {
-    // Network or module not available — fall back to legacy SHA-256 hashing.
     console.warn(
       "Argon2 module not available, falling back to legacy SHA-256 hashing.",
     );

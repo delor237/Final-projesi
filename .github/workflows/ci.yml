@@ -44,17 +44,14 @@ jobs:
 
       - name: Install npm deps
         run: |
-          cd Final-projesi
           npm install
 
       - name: Install Playwright browsers
         run: |
-          cd Final-projesi
           npx playwright install --with-deps
 
       - name: Start app
         run: |
-          cd Final-projesi
           deno task preview &
 
       - name: Wait for server
@@ -67,6 +64,5 @@ jobs:
           done
 
       - name: Run E2E tests
-        working-directory: Final-projesi
         run: |
           npx playwright test --config=playwright.config.ts

@@ -1,5 +1,5 @@
-Öğrenci: MERLIN DELOR AKENMOE KAMCHE
-Öğrenci No: 24080410153
+## **Öğrenci: MERLIN DELOR AKENMOE KAMCHE**
+## **Öğrenci No: 24080410153**
 
 # Deno Fresh Framework
 

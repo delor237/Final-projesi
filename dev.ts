@@ -2,7 +2,14 @@
 
 import config from "./fresh.config.ts";
 
-import "$std/dotenv/load.ts";
+const isDenoDeploy = Deno.env.get("DENO_DEPLOYMENT_ID") !== undefined;
+if (!isDenoDeploy) {
+  try {
+    await import("$std/dotenv/load.ts");
+  } catch (e) {
+    // Ignore error if .env is missing during build
+  }
+}
 
 Deno.env.set("FRESH_NO_UPDATE_CHECK", "true");
 

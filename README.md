@@ -1,9 +1,11 @@
 ## **Öğrenci Adı: MERLIN DELOR AKENMOE KAMCHE**
+
 ## **Öğrenci No: 24080410153**
 
 # Deno Fresh Framework
 
-> **Deno + Fresh ile islands architecture todo app — Preact, Deno KV, edge deploy**
+> **Deno + Fresh ile islands architecture todo app — Preact, Deno KV, edge
+> deploy**
 
 ![Zorluk](https://img.shields.io/badge/Zorluk-Orta--Zor-orange)
 ![Puan](https://img.shields.io/badge/Puan-50-blue)
@@ -15,32 +17,53 @@
 
 ## 🎯 Özet
 
-Bu proje, bireysel kullanıcıların günlük işlerini, kişisel hedeflerini ve akademik planlarını tek bir merkezden organize edebilmeleri amacıyla geliştirilmiş, yüksek performanslı ve modern bir görev yönetimi (Todo) uygulamasıdır. Klasik görev takip araçlarının karmaşık ve yoran yapısı yerine, son derece akıcı, hafif ve kullanıcı odaklı bir arayüz sunar.
+Bu proje, bireysel kullanıcıların günlük işlerini, kişisel hedeflerini ve
+akademik planlarını tek bir merkezden organize edebilmeleri amacıyla
+geliştirilmiş, yüksek performanslı ve modern bir görev yönetimi (Todo)
+uygulamasıdır. Klasik görev takip araçlarının karmaşık ve yoran yapısı yerine,
+son derece akıcı, hafif ve kullanıcı odaklı bir arayüz sunar.
 
-Fresh framework'ün yenilikçi sunucu tarafı derleme (SSR) ve adacık mimarisi (Islands Architecture) kullanılarak geliştirilen uygulama, kullanıcılara yüksek hızda sayfa yükleme süreleri sağlarken, istemci tarafına sadece gerekli etkileşimli parçaların JavaScript kodunu gönderir. Çerez tabanlı güvenli oturum yönetimi (Secure Cookies), CSRF koruması, veri sahipliği kontrolleri ve Deno KV yerleşik veritabanı desteği ile hem güvenli hem de sunucusuz (serverless edge deploy) bir deneyim inşa edilmiştir.
+Fresh framework'ün yenilikçi sunucu tarafı derleme (SSR) ve adacık mimarisi
+(Islands Architecture) kullanılarak geliştirilen uygulama, kullanıcılara yüksek
+hızda sayfa yükleme süreleri sağlarken, istemci tarafına sadece gerekli
+etkileşimli parçaların JavaScript kodunu gönderir. Çerez tabanlı güvenli oturum
+yönetimi (Secure Cookies), CSRF koruması, veri sahipliği kontrolleri ve Deno KV
+yerleşik veritabanı desteği ile hem güvenli hem de sunucusuz (serverless edge
+deploy) bir deneyim inşa edilmiştir.
 
 ## 🎥 Demo
 
-🔗 **Canlı Demo:** [https://final-projesi.delor237.deno.net](https://final-projesi.delor237.deno.net)  
+🔗 **Canlı Demo:**
+[https://final-projesi.delor237.deno.net](https://final-projesi.delor237.deno.net)\
 👤 **Demo Hesap:** `demo@example.com` · `demo123`
 
 ### Ekran Görüntüleri
 
-| Ana Ekran | Kategori Yönetimi | Dark Mode | Giriş Ekranı |
-|:---:|:---:|:---:|:---:|
+|             Ana Ekran              |                Kategori Yönetimi                 |                Dark Mode                |              Giriş Ekranı              |
+| :--------------------------------: | :----------------------------------------------: | :-------------------------------------: | :------------------------------------: |
 | ![Ana Ekran](screenshots/demo.png) | ![Kategori Yönetimi](screenshots/categories.png) | ![Dark Mode](screenshots/dark-mode.png) | ![Giriş Ekranı](screenshots/login.png) |
 
 ## ✨ Ana Özellikler
 
-- ✅ **Görev Yönetimi (Todo CRUD):** Görev ekleme, silme, tamamlama ve düzenleme işlemleri.
-- ✅ **Kategori Yönetimi:** Görevleri gruplandırmak için dinamik kategori ekleme, güncelleme, silme ve renk belirleme özellikleri.
-- ✅ **Kategoriye Göre Filtreleme:** Görev listesini kategorilere göre anlık olarak filtreleme.
-- ✅ **Deno KV Entegrasyonu:** Kurulum gerektirmeyen, atomik işlemleri destekleyen yerleşik Key-Value veritabanı ile tam kalıcılık.
-- ✅ **Adacık Mimarisi (Islands Architecture):** Sıfır istemci-tarafı JavaScript (default zero-JS). Sadece formlar, filtreler ve tema değiştirici gibi etkileşimli bileşenler istemcide hydrate edilir.
-- ✅ **Server-Side Rendering (SSR):** Hızlı ilk sayfa yüklemesi ve arama motoru optimizasyonu (SEO).
-- ✅ **Oturum Yönetimi:** `httpOnly` secure çerezler ile güvenli kimlik doğrulama, kullanıcı kaydı ve çıkış işlemleri.
-- ✅ **Güvenlik & CSRF Koruması:** Double Submit Cookie deseniyle CSRF koruması, API düzeyinde rota bazlı sahiplik kontrolleri ve basit rate limiting.
-- ✅ **Dark/Light Tema:** Preact Signals ile kontrol edilen ve CSS değişkenleri üzerinde çalışan pürüzsüz tema seçici.
+- ✅ **Görev Yönetimi (Todo CRUD):** Görev ekleme, silme, tamamlama ve düzenleme
+  işlemleri.
+- ✅ **Kategori Yönetimi:** Görevleri gruplandırmak için dinamik kategori
+  ekleme, güncelleme, silme ve renk belirleme özellikleri.
+- ✅ **Kategoriye Göre Filtreleme:** Görev listesini kategorilere göre anlık
+  olarak filtreleme.
+- ✅ **Deno KV Entegrasyonu:** Kurulum gerektirmeyen, atomik işlemleri
+  destekleyen yerleşik Key-Value veritabanı ile tam kalıcılık.
+- ✅ **Adacık Mimarisi (Islands Architecture):** Sıfır istemci-tarafı JavaScript
+  (default zero-JS). Sadece formlar, filtreler ve tema değiştirici gibi
+  etkileşimli bileşenler istemcide hydrate edilir.
+- ✅ **Server-Side Rendering (SSR):** Hızlı ilk sayfa yüklemesi ve arama motoru
+  optimizasyonu (SEO).
+- ✅ **Oturum Yönetimi:** `httpOnly` secure çerezler ile güvenli kimlik
+  doğrulama, kullanıcı kaydı ve çıkış işlemleri.
+- ✅ **Güvenlik & CSRF Koruması:** Double Submit Cookie deseniyle CSRF koruması,
+  API düzeyinde rota bazlı sahiplik kontrolleri ve basit rate limiting.
+- ✅ **Dark/Light Tema:** Preact Signals ile kontrol edilen ve CSS değişkenleri
+  üzerinde çalışan pürüzsüz tema seçici.
 - ✅ **Deno Deploy Uyumlu:** Edge deployment yapısına hazır mimari.
 
 ## 🧰 Tech Stack
@@ -54,12 +77,17 @@ Fresh framework'ün yenilikçi sunucu tarafı derleme (SSR) ve adacık mimarisi 
 - **Test:** `Deno Test` (Birim testler) & `Playwright` (Uçtan uca E2E testleri)
 - **Deployment:** `Deno Deploy` (34 global bölgede çalışan edge altyapısı)
 
-> Teknoloji seçimlerinin detaylı gerekçesi için [PROJE-RAPORU.md · Bölüm 7](PROJE-RAPORU.md#7-teknoloji-yığını-tech-stack) belgesini inceleyebilirsiniz.
+> Teknoloji seçimlerinin detaylı gerekçesi için
+> [PROJE-RAPORU.md · Bölüm 7](PROJE-RAPORU.md#7-teknoloji-yığını-tech-stack)
+> belgesini inceleyebilirsiniz.
 
 ## 🏗 Mimari
 
 ### Adacık Mimarisi (Islands Architecture)
-Uygulama sunucu tarafında tamamen statik HTML olarak derlenir. İstemci tarafında çalışan JavaScript kodları sadece etkileşimli bileşenler (`TodoForm`, `CategoryManager`, `ThemeToggle`) için yüklenir ve hydrate edilir.
+
+Uygulama sunucu tarafında tamamen statik HTML olarak derlenir. İstemci tarafında
+çalışan JavaScript kodları sadece etkileşimli bileşenler (`TodoForm`,
+`CategoryManager`, `ThemeToggle`) için yüklenir ve hydrate edilir.
 
 ### C4 Container Diyagramı
 
@@ -94,14 +122,14 @@ flowchart TD
 
 Veriler Deno KV üzerinde hiyerarşik anahtar dizileri olarak tutulur:
 
-| Veri Tipi | Anahtar Yapısı (Key Path) | Değer Tipi (Value Type) |
-| :--- | :--- | :--- |
-| **Kullanıcı** | `["users", userId]` | `User` nesnesi |
-| **Kullanıcı Adı İndeksi** | `["users_by_username", username]` | `userId` (string) |
-| **Oturum (Session)** | `["sessions", sessionId]` | `userId` (string, 7 günlük TTL ile) |
-| **Görev (Todo)** | `["todos", todoId]` | `Todo` nesnesi |
-| **Kullanıcı Görev İndeksi** | `["todos_by_user", userId, todoId]` | `Todo` nesnesi |
-| **Kategori** | `["categories", userId, categoryId]` | `Category` nesnesi |
+| Veri Tipi                   | Anahtar Yapısı (Key Path)            | Değer Tipi (Value Type)             |
+| :-------------------------- | :----------------------------------- | :---------------------------------- |
+| **Kullanıcı**               | `["users", userId]`                  | `User` nesnesi                      |
+| **Kullanıcı Adı İndeksi**   | `["users_by_username", username]`    | `userId` (string)                   |
+| **Oturum (Session)**        | `["sessions", sessionId]`            | `userId` (string, 7 günlük TTL ile) |
+| **Görev (Todo)**            | `["todos", todoId]`                  | `Todo` nesnesi                      |
+| **Kullanıcı Görev İndeksi** | `["todos_by_user", userId, todoId]`  | `Todo` nesnesi                      |
+| **Kategori**                | `["categories", userId, categoryId]` | `Category` nesnesi                  |
 
 ## 🚀 Kurulum ve Yerel Çalıştırma
 
@@ -117,8 +145,8 @@ Veriler Deno KV üzerinde hiyerarşik anahtar dizileri olarak tutulur:
    cd Final-projesi
    ```
 
-2. **Çevre Değişkenlerini Ayarlayın:**
-   `.env.example` dosyasını `.env` olarak kopyalayın ve gerekli alanları düzenleyin:
+2. **Çevre Değişkenlerini Ayarlayın:** `.env.example` dosyasını `.env` olarak
+   kopyalayın ve gerekli alanları düzenleyin:
    ```bash
    cp .env.example .env
    ```
@@ -136,7 +164,8 @@ Veriler Deno KV üzerinde hiyerarşik anahtar dizileri olarak tutulur:
    ```bash
    deno task start
    ```
-   Uygulama yerel ortamda **http://localhost:8000** adresinde çalışmaya başlayacaktır.
+   Uygulama yerel ortamda **http://localhost:8000** adresinde çalışmaya
+   başlayacaktır.
 
 ## 🧪 Test ve Kalite Komutları
 
@@ -154,7 +183,8 @@ deno task ci                   # CI/CD testlerinin tamamını tek komutla çalı
 
 ### Uçtan Uca (E2E) Testleri (Playwright)
 
-Projede tarayıcı davranışlarını simüle eden Playwright testleri mevcuttur. Çalıştırmak için:
+Projede tarayıcı davranışlarını simüle eden Playwright testleri mevcuttur.
+Çalıştırmak için:
 
 ```bash
 # Node bağımlılıklarını ve Playwright tarayıcılarını yükleyin
@@ -168,7 +198,8 @@ deno task preview
 npm run test:e2e
 ```
 
-CI adımları GitHub Actions üzerinde `.github/workflows/ci.yml` iş akışı aracılığıyla her push işleminde bu testleri koşturmaktadır.
+CI adımları GitHub Actions üzerinde `.github/workflows/ci.yml` iş akışı
+aracılığıyla her push işleminde bu testleri koşturmaktadır.
 
 ## 📁 Proje Yapısı
 
@@ -190,24 +221,36 @@ CI adımları GitHub Actions üzerinde `.github/workflows/ci.yml` iş akışı a
 
 ## 📖 Dokümantasyon
 
-Uygulamanın teknik detaylarına ve proje süreçlerine ait belgelere aşağıdaki linklerden ulaşabilirsiniz:
+Uygulamanın teknik detaylarına ve proje süreçlerine ait belgelere aşağıdaki
+linklerden ulaşabilirsiniz:
 
-- 📄 **Proje Raporu:** [PROJE-RAPORU.md](PROJE-RAPORU.md) (Detaylı Tasarım ve Gerekçeler)
-- 📐 **Sistem Mimarisi:** [docs/architecture.md](docs/architecture.md) (Veri Akış ve Yapı Diyagramları)
-- 🔌 **API Referansı:** [docs/api-endpoints.md](docs/api-endpoints.md) (Uç Noktalar ve Güvenlik Parametreleri)
-- 🗄️ **KV Veritabanı Şeması:** [docs/kv-database-schema.md](docs/kv-database-schema.md) (Deno KV Anahtar Tasarımı)
-- 🛡️ **Mimari Tasarım Kararları (ADR):** [docs/adr/](docs/adr/) (Architectural Decision Records)
-- 📋 **Ekran Görüntüsü Kontrol Listesi:** [docs/screenshots-checklist.md](docs/screenshots-checklist.md)
+- 📄 **Proje Raporu:** [PROJE-RAPORU.md](PROJE-RAPORU.md) (Detaylı Tasarım ve
+  Gerekçeler)
+- 📐 **Sistem Mimarisi:** [docs/architecture.md](docs/architecture.md) (Veri
+  Akış ve Yapı Diyagramları)
+- 🔌 **API Referansı:** [docs/api-endpoints.md](docs/api-endpoints.md) (Uç
+  Noktalar ve Güvenlik Parametreleri)
+- 🗄️ **KV Veritabanı Şeması:**
+  [docs/kv-database-schema.md](docs/kv-database-schema.md) (Deno KV Anahtar
+  Tasarımı)
+- 🛡️ **Mimari Tasarım Kararları (ADR):** [docs/adr/](docs/adr/) (Architectural
+  Decision Records)
+- 📋 **Ekran Görüntüsü Kontrol Listesi:**
+  [docs/screenshots-checklist.md](docs/screenshots-checklist.md)
 
 ## 🛣 Yol Haritası (Roadmap)
 
-- [x] **V1 (Mevcut Teslim)** — Görev CRUD + Deno KV Kalıcılık + Kategori Yönetimi ve Filtreleme + Oturum Yönetimi ve Güvenlik (CSRF/Rate Limit)
-- [ ] **V2 (Gelecek Sürüm)** — Çoklu kullanıcı takımları, gerçek zamanlı senkronizasyon (Deno KV Watch API) ve paylaşım özellikleri.
+- [x] **V1 (Mevcut Teslim)** — Görev CRUD + Deno KV Kalıcılık + Kategori
+      Yönetimi ve Filtreleme + Oturum Yönetimi ve Güvenlik (CSRF/Rate Limit)
+- [ ] **V2 (Gelecek Sürüm)** — Çoklu kullanıcı takımları, gerçek zamanlı
+      senkronizasyon (Deno KV Watch API) ve paylaşım özellikleri.
 - [ ] **V3 (Mobil Uyum)** — Offline-first PWA veya Deno Native mobil uygulaması.
 
 ## 🤝 Katkı
 
-Bu proje **BMU1208 Web Tabanlı Programlama** dersi kapsamında **Bitlis Eren Üniversitesi** — **Bilgisayar Mühendisliği** bölümünde bir final ödevi olarak geliştirilmiştir.
+Bu proje **BMU1208 Web Tabanlı Programlama** dersi kapsamında **Bitlis Eren
+Üniversitesi** — **Bilgisayar Mühendisliği** bölümünde bir final ödevi olarak
+geliştirilmiştir.
 
 Ders yürütücüsü: **Dr. Öğr. Üyesi Davut ARI**
 
@@ -225,8 +268,11 @@ MIT © 2026 **MERLIN DELOR AKENMOE KAMCHE** — Tam metin için [LICENSE](LICENS
 - **Ders:** BMU1208 · Web Tabanlı Programlama
 - **Kurum:** Bitlis Eren Üniversitesi — Mühendislik-Mimarlık Fakültesi
 
-> **Not:** Bu proje, öğrencinin süresi içinde seçim yapmaması sebebiyle öğretim üyesi tarafından atanmıştır (seçilemeyen projelerden, orta-zor seviyede).
+> **Not:** Bu proje, öğrencinin süresi içinde seçim yapmaması sebebiyle öğretim
+> üyesi tarafından atanmıştır (seçilemeyen projelerden, orta-zor seviyede).
 
 ---
 
-<sub>🤖 Bu projede [Claude Code](https://claude.com/claude-code) ve [Cursor](https://cursor.sh) gibi AI asistanları kullanılmıştır. Tüm mimari kararlar ve kullanım tercihleri öğrenci tarafından yapılmıştır.</sub>
+<sub>🤖 Bu projede [Claude Code](https://claude.com/claude-code) ve
+[Cursor](https://cursor.sh) gibi AI asistanları kullanılmıştır. Tüm mimari
+kararlar ve kullanım tercihleri öğrenci tarafından yapılmıştır.</sub>

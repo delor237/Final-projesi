@@ -1,7 +1,9 @@
 export default function NotFoundPage() {
   return (
     <div class="flex flex-col items-center justify-center py-20 text-center">
-      <div class="text-9xl font-bold text-brand-600 dark:text-brand-500 mb-4">404</div>
+      <div class="text-9xl font-bold text-brand-600 dark:text-brand-500 mb-4">
+        404
+      </div>
       <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-6">
         Sayfa Bulunamadı
       </h1>

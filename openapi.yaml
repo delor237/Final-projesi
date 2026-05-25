@@ -1,0 +1,265 @@
+openapi: 3.1.0
+info:
+  title: Deno Fresh Todo API
+  version: 1.0.0
+  description: API contract for the Deno Fresh Todo application.
+servers:
+  - url: https://final-projesi.delor237.deno.net
+  - url: http://localhost:8000
+paths:
+  /api/todos:
+    get:
+      summary: List todos for the authenticated user
+      security:
+        - cookieAuth: []
+      responses:
+        "200":
+          description: Todo list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Todo"
+        "401":
+          description: Unauthorized
+    post:
+      summary: Create a todo
+      security:
+        - cookieAuth: []
+          csrfHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - title
+              properties:
+                title:
+                  type: string
+                  minLength: 1
+                  maxLength: 200
+                description:
+                  type: string
+                  maxLength: 1000
+                categoryId:
+                  type: string
+      responses:
+        "201":
+          description: Created todo
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Todo"
+        "400":
+          description: Invalid request
+        "401":
+          description: Unauthorized
+        "403":
+          description: CSRF verification failed
+    patch:
+      summary: Toggle a todo completion state
+      security:
+        - cookieAuth: []
+          csrfHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: string
+      responses:
+        "200":
+          description: Updated todo
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Todo"
+        "404":
+          description: Todo not found
+    delete:
+      summary: Delete a todo
+      security:
+        - cookieAuth: []
+          csrfHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: string
+      responses:
+        "200":
+          description: Delete result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+  /api/categories:
+    get:
+      summary: List categories for the authenticated user
+      security:
+        - cookieAuth: []
+      responses:
+        "200":
+          description: Category list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Category"
+        "401":
+          description: Unauthorized
+    post:
+      summary: Create a category
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - color
+                - _csrf
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 50
+                color:
+                  type: string
+                  pattern: "^#[0-9A-Fa-f]{6}$"
+                _csrf:
+                  type: string
+      responses:
+        "201":
+          description: Created category
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+        "403":
+          description: CSRF verification failed
+    patch:
+      summary: Update a category
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+                - name
+                - color
+                - _csrf
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                color:
+                  type: string
+                _csrf:
+                  type: string
+      responses:
+        "200":
+          description: Updated category
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+        "404":
+          description: Category not found
+    delete:
+      summary: Delete a category
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+                - _csrf
+              properties:
+                id:
+                  type: string
+                _csrf:
+                  type: string
+      responses:
+        "200":
+          description: Delete result
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: auth
+    csrfHeader:
+      type: apiKey
+      in: header
+      name: x-csrf-token
+  schemas:
+    Todo:
+      type: object
+      required:
+        - id
+        - userId
+        - title
+        - completed
+        - createdAt
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        categoryId:
+          type: string
+        completed:
+          type: boolean
+        createdAt:
+          type: number
+    Category:
+      type: object
+      required:
+        - id
+        - userId
+        - name
+        - color
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        name:
+          type: string
+        color:
+          type: string

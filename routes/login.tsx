@@ -1,6 +1,10 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { getCookies, setCookie } from "$std/http/cookie.ts";
-import { hashPassword, authenticateUser, registerUser, createSession } from "../utils/auth.ts";
+import {
+  authenticateUser,
+  createSession,
+  registerUser,
+} from "../utils/auth.ts";
 import { kv } from "../utils/db.ts";
 import { State } from "./_middleware.ts";
 
@@ -10,7 +14,7 @@ interface Data {
 }
 
 export const handler: Handlers<Data, State> = {
-  async GET(req, ctx) {
+  GET(_req, ctx) {
     if (ctx.state.user) {
       return new Response("", {
         status: 303,
@@ -19,7 +23,7 @@ export const handler: Handlers<Data, State> = {
     }
     return ctx.render({});
   },
-  
+
   async POST(req, ctx) {
     const form = await req.formData();
     const action = form.get("action")?.toString();
@@ -39,14 +43,23 @@ export const handler: Handlers<Data, State> = {
     let user = null;
 
     if (action === "register") {
+      if (password.length < 6) {
+        return ctx.render({ error: "Şifre en az 6 karakter olmalıdır." });
+      }
+
       user = await registerUser(username, password);
       if (!user) {
-        return ctx.render({ error: "Bu kullanıcı adı zaten sistemde kayıtlı." });
+        return ctx.render({
+          error: "Bu kullanıcı adı zaten sistemde kayıtlı.",
+        });
       }
     } else {
       const existingUserCheck = await kv.get(["users_by_username", username]);
       if (!existingUserCheck.value) {
-        return ctx.render({ error: "Kullanıcı bulunamadı. Lütfen önce 'Kayıt Ol' butonuna tıklayın." });
+        return ctx.render({
+          error:
+            "Kullanıcı bulunamadı. Lütfen önce 'Kayıt Ol' butonuna tıklayın.",
+        });
       }
 
       user = await authenticateUser(username, password);
@@ -58,7 +71,7 @@ export const handler: Handlers<Data, State> = {
     const sessionId = await createSession(user.id);
     const headers = new Headers();
     const isSecure = new URL(req.url).protocol === "https:";
-    
+
     setCookie(headers, {
       name: "auth",
       value: sessionId,
@@ -68,7 +81,7 @@ export const handler: Handlers<Data, State> = {
       httpOnly: true,
       secure: isSecure,
     });
-    
+
     headers.set("Location", "/");
 
     return new Response("", {
@@ -97,18 +110,22 @@ export default function Login({ data, state }: PageProps<Data, State>) {
 
       <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-md">
         <div class="bg-white dark:bg-gray-800 py-10 px-8 shadow-2xl shadow-slate-200/50 dark:shadow-none sm:rounded-3xl border border-gray-100 dark:border-gray-800">
-          
           {data?.error && (
             <div class="mb-6 bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30 p-4 rounded-2xl flex items-center gap-3">
               <span class="text-red-500 text-xl font-bold">!</span>
-              <p class="text-sm text-red-700 dark:text-red-400 font-medium">{data.error}</p>
+              <p class="text-sm text-red-700 dark:text-red-400 font-medium">
+                {data.error}
+              </p>
             </div>
           )}
 
           <form method="POST" class="space-y-6">
             <input type="hidden" name="_csrf" value={state.csrfToken} />
             <div>
-              <label for="username" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1 ml-1">
+              <label
+                for="username"
+                class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1 ml-1"
+              >
                 Kullanıcı Adı
               </label>
               <input
@@ -122,7 +139,10 @@ export default function Login({ data, state }: PageProps<Data, State>) {
             </div>
 
             <div>
-              <label for="password" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1 ml-1">
+              <label
+                for="password"
+                class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1 ml-1"
+              >
                 Şifre
               </label>
               <input
@@ -144,7 +164,7 @@ export default function Login({ data, state }: PageProps<Data, State>) {
               >
                 Giriş Yap
               </button>
-              
+
               <button
                 type="submit"
                 name="action"
@@ -156,7 +176,7 @@ export default function Login({ data, state }: PageProps<Data, State>) {
             </div>
           </form>
         </div>
-        
+
         <p class="mt-8 text-center text-xs text-gray-400 uppercase tracking-widest font-bold">
           Deno Fresh • Preact • Deno KV
         </p>

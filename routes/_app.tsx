@@ -2,7 +2,7 @@ import { type PageProps } from "$fresh/server.ts";
 import Navbar from "../islands/Navbar.tsx";
 import { State } from "./_middleware.ts";
 
-export default function App({ Component, state }: PageProps<any, State>) {
+export default function App({ Component, state }: PageProps<unknown, State>) {
   return (
     <html lang="tr">
       <head>
@@ -10,8 +10,15 @@ export default function App({ Component, state }: PageProps<any, State>) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Deno Fresh Todo Uygulaması</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
+          rel="stylesheet"
+        />
         {/* Kullanıcının dark tema tercihini sayfa yüklenmeden önce kontrol eden script */}
         <script
           dangerouslySetInnerHTML={{

@@ -1,46 +1,80 @@
-# Deno KV Veritabanı Şeması
+# Deno KV Database Schema
 
-Bu proje veri depolama için Deno'nun yerleşik, anahtar-değer tabanlı veritabanı çözümü olan **Deno KV**'yi kullanmaktadır. Aşağıda projede kullanılan temel veri yapılarının anahtar (key) hiyerarşisi açıklanmıştır.
+The app stores all persistent data in Deno KV. Keys are grouped by resource and
+user ownership.
 
-## 1. Kullanıcılar (Users)
-Kullanıcı bilgileri benzersiz bir ID ile saklanır ve kimlik doğrulama süreçlerinde kullanılır.
+## Users
 
-* **Anahtar Yapısı (Key):** `["users", <kullanici_id>]`
-* **Örnek Değer (Value):**
-  ```typescript
-  {
-    id: string;
-    username: string;
-    passwordHash: string;
-    createdAt: Date;
-  }
-  ```
+```ts
+["users", userId];
+```
 
-## 2. Görevler (Todos)
-Görevler, her bir kullanıcının benzersiz ID'sine bağlı olarak kümelenir. Bu mimari, belirli bir kullanıcının görevlerini hızlıca sorgulamayı kolaylaştırır.
+```ts
+interface User {
+  id: string;
+  username: string;
+  passwordHash: string;
+  salt: string;
+  createdAt: number;
+}
+```
 
-* **Anahtar Yapısı (Key):** `["todos", <kullanici_id>, <todo_id>]`
-* **Örnek Değer (Value):**
-  ```typescript
-  {
-    id: string;
-    userId: string;
-    title: string;
-    completed: boolean;
-    categoryId: string | null;
-    createdAt: Date;
-  }
-  ```
+Username lookup index:
 
-## 3. Kategoriler (Categories)
-Görevleri gruplandırmak veya etiketlemek için kullanılan yapısal birimlerdir. Sisteme özel tanımlanabilir.
+```ts
+["users_by_username", username] -> userId
+```
 
-* **Anahtar Yapısı (Key):** `["categories", <kategori_id>]`
-* **Örnek Değer (Value):**
-  ```typescript
-  {
-    id: string;
-    name: string; // Örn: "İş", "Kişisel"
-    colorCode: string; // Örn: "#FF5733"
-  }
-  ```
+## Sessions
+
+```ts
+["sessions", sessionId] -> userId
+```
+
+Sessions are created with a seven-day TTL.
+
+## Todos
+
+Direct lookup:
+
+```ts
+["todos", todoId];
+```
+
+User list lookup:
+
+```ts
+["todos_by_user", userId, todoId];
+```
+
+```ts
+interface Todo {
+  id: string;
+  userId: string;
+  title: string;
+  description?: string;
+  categoryId?: string;
+  completed: boolean;
+  createdAt: number;
+}
+```
+
+The app writes both todo keys in one atomic operation.
+
+## Categories
+
+```ts
+["categories", userId, categoryId];
+```
+
+```ts
+interface Category {
+  id: string;
+  userId: string;
+  name: string;
+  color: string;
+}
+```
+
+Deleting a category also clears that `categoryId` from the user's todos in the
+same atomic operation when possible.

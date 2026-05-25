@@ -1,20 +1,21 @@
-import { kv, User } from "./utils/db.ts";
-import { hashPassword, generateSalt } from "./utils/auth.ts";
+import { registerUser } from "./utils/auth.ts";
 
 async function createAdmin() {
-  const username = "merlin";
-  const password = "1234";
-  
-  const id = crypto.randomUUID();
-  const salt = generateSalt();
-  const passwordHash = await hashPassword(password, salt);
-  
-  const user: User = { id, username, passwordHash, salt, createdAt: Date.now() };
-  
-  await kv.set(["users", id], user);
-  await kv.set(["users_by_username", username], id);
-  
-  console.log(`User created: ${username} / ${password}`);
+  const username = Deno.env.get("ADMIN_USERNAME");
+  const password = Deno.env.get("ADMIN_PASSWORD");
+
+  if (!username || !password) {
+    console.error("ADMIN_USERNAME and ADMIN_PASSWORD must be set.");
+    Deno.exit(1);
+  }
+
+  const user = await registerUser(username, password);
+  if (!user) {
+    console.error("User already exists.");
+    Deno.exit(1);
+  }
+
+  console.log(`User created: ${user.username}`);
   Deno.exit(0);
 }
 

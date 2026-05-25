@@ -24,7 +24,7 @@ export default {
           slate: {
             50: "#f8fafc",
             900: "#0f172a",
-          }
+          },
         },
         fontFamily: {
           sans: ["Inter", "system-ui", "sans-serif"],
@@ -42,8 +42,8 @@ export default {
           "scale-in": {
             "0%": { opacity: "0", transform: "scale(0.95)" },
             "100%": { opacity: "1", transform: "scale(1)" },
-          }
-        }
+          },
+        },
       },
     },
   }),

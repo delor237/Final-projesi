@@ -1,21 +1,46 @@
-# API Uç Noktaları ve Yönlendirme (Routes)
+# API Endpoints
 
-Proje, Deno Fresh framework'ünün esnek ve dosya tabanlı yönlendirme (file-system routing) yapısı üzerine inşa edilmiştir.
+This Fresh app uses file-based routes under `routes/`.
 
-## Middleware ve Oturum Yönetimi (Auth Flow)
-Güvenlik ve erişim denetimi `routes/_middleware.ts` dosyası üzerinden merkezi olarak yönetilmektedir:
-1. İstemciden (tarayıcıdan) gelen her istekte `session_id` çerezi (cookie) kontrol edilir.
-2. Eğer geçerli bir oturum bulunamazsa ve kullanıcı yetki gerektiren bir rotaya (`/dashboard` gibi) erişmek isterse, sistem HTTP 302 durumuyla kullanıcıyı `/login` rotasına yönlendirir.
-3. Yetki gerektirmeyen (Public) sayfalar herkesin erişimine açıktır.
+## Page Routes
 
-## Uygulama Rotaları (Pages)
-- **`GET /`** : Ana sayfa (Landing Page). Proje tanıtımı ve giriş bağlantılarını içerir.
-- **`GET /login`** : Kullanıcıların oturum açtığı sayfadır. Form verileri sunucuya gönderilir.
-- **`GET /register`** : Sisteme yeni kullanıcı kaydetme sayfası.
-- **`GET /dashboard`** : Kullanıcıya özel kontrol paneli. (Giriş zorunludur).
+| Method | Path          | Description                                                 | Auth          |
+| ------ | ------------- | ----------------------------------------------------------- | ------------- |
+| GET    | `/`           | Landing page for guests; todo dashboard for logged-in users | Optional      |
+| GET    | `/login`      | Login/register form                                         | Guest         |
+| POST   | `/login`      | Login/register form action                                  | Public + CSRF |
+| GET    | `/logout`     | Deletes the server session and auth cookie                  | Optional      |
+| GET    | `/categories` | Category management page                                    | Required      |
 
-## API Uç Noktaları (Endpoints)
-- **`GET /api/todos`** : Oturumu açık olan kullanıcının tüm görev kayıtlarını JSON formatında getirir.
-- **`POST /api/todos`** : Sisteme yeni bir görev ekler. Gelen veriler sunucuda doğrulanır ve Deno KV'ye yazılır.
-- **`PUT /api/todos/[id]`** : Dinamik olarak belirtilen `id` değerindeki görevin bilgilerini (örneğin tamamlandı/tamamlanmadı durumu) günceller.
-- **`DELETE /api/todos/[id]`** : Belirtilen `id` değerine sahip görevi veritabanından kalıcı olarak siler.
+## API Routes
+
+All `/api/*` routes require an authenticated `auth` cookie. Write operations
+also require a CSRF token.
+
+| Method | Path              | Description                               | Auth                          |
+| ------ | ----------------- | ----------------------------------------- | ----------------------------- |
+| GET    | `/api/todos`      | Returns todos for the logged-in user      | Required                      |
+| POST   | `/api/todos`      | Creates a todo                            | Required + `x-csrf-token`     |
+| PATCH  | `/api/todos`      | Toggles todo completion                   | Required + `x-csrf-token`     |
+| DELETE | `/api/todos`      | Deletes a todo                            | Required + `x-csrf-token`     |
+| GET    | `/api/categories` | Returns categories for the logged-in user | Required                      |
+| POST   | `/api/categories` | Creates a category                        | Required + `_csrf` body field |
+| PATCH  | `/api/categories` | Updates a category                        | Required + `_csrf` body field |
+| DELETE | `/api/categories` | Deletes a category                        | Required + `_csrf` body field |
+
+## Security Behavior
+
+- Unauthenticated API requests return `401`.
+- Invalid CSRF tokens return `403`.
+- Login/register is rate-limited to 5 requests per minute per IP/path.
+- API write operations are rate-limited to 60 requests per minute per IP/path.
+- Todo and category mutations check ownership before writing to Deno KV.
+- Security headers are applied globally in `routes/_middleware.ts`.
+
+## OpenAPI
+
+The machine-readable contract is stored at:
+
+```text
+openapi.yaml
+```

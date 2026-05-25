@@ -1,3 +1,6 @@
+Öğrenci: MERLIN DELOR AKENMOE KAMCHE
+Öğrenci No: 24080410153
+
 # Deno Fresh Framework
 
 > **Deno + Fresh ile islands architecture todo app — Preact, Deno KV, edge deploy**

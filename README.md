@@ -1,4 +1,4 @@
-## **Öğrenci AD: MERLIN DELOR AKENMOE KAMCHE**
+## **Öğrenci Adı: MERLIN DELOR AKENMOE KAMCHE**
 ## **Öğrenci No: 24080410153**
 
 # Deno Fresh Framework

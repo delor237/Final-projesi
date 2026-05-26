@@ -44,7 +44,7 @@ deploy) bir deneyim inşa edilmiştir.
 
 |             Ana Ekran              |                Kategori Yönetimi                 |                Dark Mode                |              Giriş Ekranı              |
 | :--------------------------------: | :----------------------------------------------: | :-------------------------------------: | :------------------------------------: |
-| ![Ana Ekran](screenshots/demo.png) | ![Kategori Yönetimi](screenshots/categories.png) | ![Dark Mode](screenshots/dark-mode.png) | ![Giriş Ekranı](screenshots/login.png) |
+| ![Ana Ekran](docs/screenshots/demo.png) | ![Kategori Yönetimi](docs/screenshots/categories.png) | ![Dark Mode](docs/screenshots/dark-mode.png) | ![Giriş Ekranı](docs/screenshots/login.png) |
 
 ## ✨ Ana Özellikler
 
@@ -220,8 +220,7 @@ aracılığıyla her push işleminde bu testleri koşturmaktadır.
 ├── routes/              # Fresh sayfaları ve API uç noktaları (File-based Routing)
 ├── islands/             # İstemci taraflı etkileşimli Preact bileşenleri (Adacıklar)
 ├── utils/               # Auth, CSRF koruması, veri doğrulama ve Deno KV yardımcıları
-├── docs/                # API dokümantasyonu, veritabanı şeması, mimari ve ADR belgeleri
-├── screenshots/         # Proje ekran görüntüleri
+├── docs/                # Dokümantasyon, mimari, ekran görüntüleri (screenshots) ve video demo
 ├── tests/               # Deno birim testleri
 ├── e2e/                 # Playwright uçtan uca (E2E) test senaryoları
 ├── openapi.yaml         # Scalar/Swagger uyumlu OpenAPI 3.1 API sözleşmesi

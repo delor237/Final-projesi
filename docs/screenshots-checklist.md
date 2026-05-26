@@ -2,18 +2,18 @@
 
 Existing screenshots:
 
-- `screenshots/demo.png`
-- `screenshots/dark-mode.png`
-- `screenshots/categories.png`
-- `screenshots/login.png`
+- `docs/screenshots/demo.png`
+- `docs/screenshots/dark-mode.png`
+- `docs/screenshots/categories.png`
+- `docs/screenshots/login.png`
 
 Recommended additional screenshots before final submission:
 
-- `screenshots/mobile-view.png` - responsive mobile dashboard.
-- `screenshots/empty-state.png` - logged-in user with no todos.
-- `screenshots/not-found.png` - 404 page.
-- `screenshots/category-edit.png` - category edit state.
-- `screenshots/api-unauthorized.png` - optional browser/devtools proof for 401
+- `docs/screenshots/mobile-view.png` - responsive mobile dashboard.
+- `docs/screenshots/empty-state.png` - logged-in user with no todos.
+- `docs/screenshots/not-found.png` - 404 page.
+- `docs/screenshots/category-edit.png` - category edit state.
+- `docs/screenshots/api-unauthorized.png` - optional browser/devtools proof for 401
   API behavior.
 
 Suggested capture flow:

@@ -13,8 +13,8 @@ Recommended additional screenshots before final submission:
 - `docs/screenshots/empty-state.png` - logged-in user with no todos.
 - `docs/screenshots/not-found.png` - 404 page.
 - `docs/screenshots/category-edit.png` - category edit state.
-- `docs/screenshots/api-unauthorized.png` - optional browser/devtools proof for 401
-  API behavior.
+- `docs/screenshots/api-unauthorized.png` - optional browser/devtools proof for
+  401 API behavior.
 
 Suggested capture flow:
 

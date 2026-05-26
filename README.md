@@ -37,13 +37,12 @@ deploy) bir deneyim inşa edilmiştir.
 [https://final-projesi.delor237.deno.net](https://final-projesi.delor237.deno.net)\
 👤 **Demo Hesap:** `demo@example.com` · `demo123`
 
-▶️ **Canlı Video Demo:**
-[Videoyu izlemek için tıklayın](./docs/demo.mp4)
+▶️ **Canlı Video Demo:** [Videoyu izlemek için tıklayın](./docs/demo.mp4)
 
 ### Ekran Görüntüleri
 
-|             Ana Ekran              |                Kategori Yönetimi                 |                Dark Mode                |              Giriş Ekranı              |
-| :--------------------------------: | :----------------------------------------------: | :-------------------------------------: | :------------------------------------: |
+|                Ana Ekran                |                   Kategori Yönetimi                   |                  Dark Mode                   |                Giriş Ekranı                 |
+| :-------------------------------------: | :---------------------------------------------------: | :------------------------------------------: | :-----------------------------------------: |
 | ![Ana Ekran](docs/screenshots/demo.png) | ![Kategori Yönetimi](docs/screenshots/categories.png) | ![Dark Mode](docs/screenshots/dark-mode.png) | ![Giriş Ekranı](docs/screenshots/login.png) |
 
 ## ✨ Ana Özellikler

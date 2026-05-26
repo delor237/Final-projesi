@@ -6,7 +6,7 @@ const isDenoDeploy = Deno.env.get("DENO_DEPLOYMENT_ID") !== undefined;
 if (!isDenoDeploy) {
   try {
     await import("$std/dotenv/load.ts");
-  } catch (e) {
+  } catch (_e) {
     // Ignore error if .env is missing during build
   }
 }

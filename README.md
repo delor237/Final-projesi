@@ -198,6 +198,15 @@ deno task preview
 npm run test:e2e
 ```
 
+## ⚠️ Security note — Password hashing
+
+The repository includes a vendored shim at `vendor/argon2_shim.ts` that uses
+PBKDF2 to emulate Argon2-style hashes for reliability in CI and offline
+environments. This shim is intended as a compatibility fallback — for any
+production deployment you should replace it with a vetted Argon2 implementation
+(ideally a WASM-based Argon2 or the official native module) to get memory-hard
+password hashing.
+
 CI adımları GitHub Actions üzerinde `.github/workflows/ci.yml` iş akışı
 aracılığıyla her push işleminde bu testleri koşturmaktadır.
 

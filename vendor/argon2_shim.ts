@@ -2,6 +2,9 @@
 // Exports `hash(password)` -> string and `verify(hash, password)` -> boolean
 // The returned hash string begins with `$argon2` so the application's
 // detection logic treats these as Argon2-style hashes.
+// NOTE: This is a compatibility shim using PBKDF2 for CI and offline runs.
+// For production use, replace this file with a vetted Argon2 WASM or native
+// implementation to gain memory-hard hashing protections.
 
 export async function hash(password: string): Promise<string> {
   const encoder = new TextEncoder();

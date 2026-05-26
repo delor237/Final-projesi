@@ -37,6 +37,9 @@ deploy) bir deneyim inşa edilmiştir.
 [https://final-projesi.delor237.deno.net](https://final-projesi.delor237.deno.net)\
 👤 **Demo Hesap:** `demo@example.com` · `demo123`
 
+▶️ **Canlı Video Demo:**
+[Videoyu izlemek için tıklayın](./docs/demo.mp4)
+
 ### Ekran Görüntüleri
 
 |             Ana Ekran              |                Kategori Yönetimi                 |                Dark Mode                |              Giriş Ekranı              |

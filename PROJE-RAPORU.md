@@ -65,8 +65,9 @@ Bilgisayar Mühendisliği\
 | Slogan (1 cümle) | [_örn. "Bir HTML dosyası kadar hafif, bir mağaza kadar güçlü"_] |
 | Kategori         | [_örn. E-ticaret / Productivity / Finance / Education / …_]     |
 | Hedef Platform   | Web (responsive) · [Mobile web · PWA · Desktop (Tauri)]         |
-| GitHub           | https://github.com/KULLANICI_ADI/final-p19-deno-fresh-todo      |
-| Canlı Demo       | https://deno-fresh-todo-portfolyo.vercel.app                    |
+| GitHub           | https://github.com/delor237/Final-projesi                       |
+| Canlı Demo       | https://final-projesi.delor237.deno.net                         |
+| Demo Videosu     | [Video Demo İzle](./docs/demo.mp4)                              |
 | Demo Kullanıcı   | Email: `demo@example.com` · Şifre: `demo123`                    |
 | Lisans           | MIT                                                             |
 | Başlangıç        | 2026-04-15                                                      |
